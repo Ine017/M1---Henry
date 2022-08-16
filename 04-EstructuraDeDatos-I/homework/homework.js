@@ -15,9 +15,57 @@ Como ejercicio adicional y completamente opcional, al terminar de resolver este 
 */
 
 function nFactorial(n) {
+    
+  if(n > -1 && n < 2) {
+    return 1;
+  } else if (n < 0) {
+    return 0;
+  }
+  
+  return n * nFactorial(n -1);
 }
 
 function nFibonacci(n) {
+
+ 
+// Primero entender cuál es el punto de corte
+
+if (n === 0) { return 0; }
+if (n === 1) { return 1; }
+
+n = nFibonacci(n-1) + nFibonacci(n-2);
+
+ return n;
+
+
+
+
+// Dibujar el paso a paso
+
+/*  n = posición en la secuencia!!!  posición 1, resultado 0 --> nFib(1) = 0
+       
+--> n1 = 0 (n1)                                                     nFib(n1) = 0      ---> 0
+--> n2 = 1 = n1 + 1                                      nFib(n2) = nFib(n1[0]) + 1   ---> 1
+--> n3 = 1 = n2 + n1                          nFib(n3) = nFib(n2[1]) + nFib(n1[0])    ---> 1
+--> n4 = 2 = n3 + n2               nFib(n4) = nFib(n3[1]) + nFib(2[1])                ---> 2
+--> n5 = 3 = n4 + n3    nFib(n5) = nFib(n4[2]) + nFib(n3[1])                          ---> 3 // Fin
+--> n6 = 5 = n5 + n4    
+--> n7 = 8 = n6 + n5 
+--> n8 = 13 = n7 + n6
+*/
+// El primer elemento es el 0 y el segundo el 1 
+
+// Cualquier elemento que se agregue a esta secuencia será el resultado de la suma del último elemento y el anterior
+ 
+// nFibonacci(n) = nFibonacci(n-1) + nFibonacci(n-2);
+ 
+ //var fib = nFibonacci(n-1) + nFibonacci(n-2);
+
+ //return fib;
+
+  // fibonacci (n) = núm
+  // return núm
+
 }
 
 /*
@@ -29,9 +77,52 @@ Implementar la clase Queue, sabiendo que es una estructura de tipo FIFO, donde e
 Pueden utilizar class o función constructora.
 */
 
-function Queue() {
+//function Queue() {
+
+  class Queue {
+    constructor() {
+      this.queue = [];
+    }
+  
+    enqueue(value) {
+      this.queue.push(value);
+    }
+  
+    dequeue() {
+      return this.queue.shift();
+    }
+  
+    size() {
+      return this.queue.length;
+    }
+  }
+
+ /* function Queue() {
+
+    this.arr = [];
+    this.enqueue = function() {
+        this.arr.push(data);
+    };
 
 }
+
+Queue.prototype.dequeue = function(){
+    return this.arr.shift(); 
+};
+
+Queue.prototype.size = function(){
+    return this.arr.length;
+}; */
+  
+     
+
+   //enqueue: agrega un valor en el último lugar de la cola
+   //dequeue: remueve el valor del primer lugar de la cola
+   //size: cola.length
+
+ // }
+
+
 
 // No modifiquen nada debajo de esta linea
 // --------------------------------
