@@ -11,9 +11,97 @@ Implementar la clase LinkedList, definiendo los siguientes métodos:
   En caso de que la búsqueda no arroje resultados, search debe retornar null.
 */
 
-function LinkedList() {}
+function LinkedList() {
 
-function Node(value) {}
+  this.head = null;
+
+}
+
+function Node(value) {
+  
+  this.value = value;
+  this.next = null;
+}
+
+
+let newList = new LinkedList();
+
+LinkedList.prototype.add = function(value) {
+
+  let node = new Node(value);  
+  let current = this.head;
+
+  if(!current) { 
+
+    this.head = node;
+    return node;
+   }
+
+  while (current.next) {
+
+    current = current.next;
+
+  }
+  current.next = node;
+}
+
+LinkedList.prototype.remove = function(){
+
+  if (this.head === null) return null;
+  if (this.head && !this.head.next) {
+    let removedNode = this.head;
+    this.head = null;
+
+    return removedNode.value;    
+  }
+  let current = this.head;
+  while (current.next.next) {
+
+    current = current.next;
+  }
+    let removedNode = current.next;
+    current.next = null;
+      return removedNode.value;
+
+};
+
+LinkedList.prototype.search = function(value){
+
+  if(this.head === null) return null; 
+  let current = this.head; 
+  
+  while (current) {
+    if (current.value === value) return current.value;
+    else if (typeof value == 'function' ){
+         
+          if (value(current.value)) {return current.value;}                
+               
+        }
+        
+        current = current.next;
+
+        }   return null;
+
+
+};
+
+
+
+
+
+
+// if (!current) { }
+//if (current) {}
+// while() {}
+//
+
+// function add (){ agrega un nodo al final de la lista}
+// function remove (){ elimina el último nodo de la lista y retorna su valor
+// tener en cuenta casos partic de lista de un sólo nodo y lista vacía}
+// function search (param) { busca el parám dentro de la lista; éste puede ser value -busca un un nodo cuyo valor coincida con lo buscado-
+// o cb - buscamos un nodo cuyo valor, al ser pasado como parámetro del callback, retorne true-} 
+// Si no hay resultado, search return null
+
 
 /*
 Implementar la clase HashTable.
@@ -30,7 +118,39 @@ La clase debe tener los siguientes métodos:
 Ejemplo: supongamos que quiero guardar {instructora: 'Ani'} en la tabla. Primero puedo chequear, con hasKey, si ya hay algo en la tabla con el nombre 'instructora'; luego, invocando set('instructora', 'Ani'), se almacenará el par clave-valor en un bucket específico (determinado al hashear la clave)
 */
 
-function HashTable() {}
+class HashTable {
+  constructor(){
+    this.numBuckets = 35;
+    this.buckets = [];
+  }
+  hash(key){
+    let sum = 0;
+   for (let i = 0; i < key.length; i++) {
+     sum += key.charCodeAt(i) 
+  }  return sum % this.numBuckets;
+  };
+
+  set(key, value){
+    if( typeof key !== 'string') throw TypeError('Keys must be strings'); 
+    let i = this.hash(key);
+    //Para asegurar que no hayan colisiones, puedo crear objetos (arrays, listas) dentro del array buckets
+    if(this.buckets[i] === undefined) { //this.buckets = []; i = 3;
+      this.buckets[i] = {};              //this.buckets[3] = [,,,] --> nada en la posic 3, crea obj! --> this.buckets[3] = [,,,{}]
+    }
+    this.buckets[i][key] = value;        //en ese obj q creaste, guarda key:value --> this.buckets[3] = [,,,{key: value}]
+  };
+ 
+  get(key){          // voy a obtener un valor, llega x parám el key
+    let i = this.hash(key);  //dónde voy a buscar el valor? 
+    return this.buckets[i][key]; //devolve el valor que está ahí y corresp a esa key
+  };                            //ej: i = 3, key = hola, value = hello --> this.buckets[3][hola] --> returns hello
+ 
+  hasKey(key){
+    let i = this.hash(key); //va a la posición que le indico y chequea si es true or false q tenga la prop
+    return this.buckets[i].hasOwnProperty(key);
+
+  };
+}
 
 // No modifiquen nada debajo de esta linea
 // --------------------------------
